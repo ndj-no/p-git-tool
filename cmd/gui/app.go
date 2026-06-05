@@ -116,12 +116,53 @@ func (a *App) DeleteRepo(id string) string {
 	return ""
 }
 
-func (a *App) ImportCSV(path string) string {
-	inserted, updated, err := a.configRepo.ImportReposFromCSV(path)
+func (a *App) ImportCSV() string {
+	filePath, err := wailsRuntime.OpenFileDialog(a.ctx, wailsRuntime.OpenDialogOptions{
+		Title: "Select Repositories CSV File",
+		Filters: []wailsRuntime.FileFilter{
+			{
+				DisplayName: "CSV Files (*.csv)",
+				Pattern:     "*.csv",
+			},
+		},
+	})
+	if err != nil {
+		return fmt.Sprintf("Error selecting file: %s", err.Error())
+	}
+	if filePath == "" {
+		return "" // User cancelled
+	}
+
+	inserted, updated, err := a.configRepo.ImportReposFromCSV(filePath)
 	if err != nil {
 		return fmt.Sprintf("Error: %s", err.Error())
 	}
 	return fmt.Sprintf("Imported successfully! Added %d, Upserted %d.", inserted, updated)
+}
+
+func (a *App) ExportCSVTemplate() string {
+	filePath, err := wailsRuntime.SaveFileDialog(a.ctx, wailsRuntime.SaveDialogOptions{
+		DefaultFilename: "repos_template.csv",
+		Title:           "Save CSV Template",
+		Filters: []wailsRuntime.FileFilter{
+			{
+				DisplayName: "CSV Files (*.csv)",
+				Pattern:     "*.csv",
+			},
+		},
+	})
+	if err != nil {
+		return fmt.Sprintf("Error showing save dialog: %s", err.Error())
+	}
+	if filePath == "" {
+		return "" // User cancelled
+	}
+
+	err = a.configRepo.ExportCSVTemplate(filePath)
+	if err != nil {
+		return fmt.Sprintf("Error: %s", err.Error())
+	}
+	return "Template CSV file exported successfully!"
 }
 
 // --------------------------------------------------------------------

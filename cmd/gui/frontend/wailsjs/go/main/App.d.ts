@@ -12,13 +12,15 @@ export function DeleteAuthProfile(arg1:string):Promise<string>;
 
 export function DeleteRepo(arg1:string):Promise<string>;
 
+export function ExportCSVTemplate():Promise<string>;
+
 export function GetAuthProfiles():Promise<Array<domain.AuthProfile>>;
 
 export function GetConfig():Promise<domain.WorkspaceConfig>;
 
 export function GetRepos():Promise<Array<domain.Repo>>;
 
-export function ImportCSV(arg1:string):Promise<string>;
+export function ImportCSV():Promise<string>;
 
 export function SaveConfig(arg1:string,arg2:number):Promise<string>;
 

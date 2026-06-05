@@ -344,8 +344,9 @@ func manageReposFlow() {
 			"1. List & Search Repos",
 			"2. Add New Repo Manually",
 			"3. Import Repos from CSV",
-			"4. Delete Repo",
-			"5. Back to Main Menu",
+			"4. Export CSV Template",
+			"5. Delete Repo",
+			"6. Back to Main Menu",
 		}
 
 		var choice string
@@ -364,8 +365,10 @@ func manageReposFlow() {
 		} else if choice == options[2] {
 			importCSVSubFlow()
 		} else if choice == options[3] {
-			deleteRepoSubFlow()
+			exportCSVTemplateSubFlow()
 		} else if choice == options[4] {
+			deleteRepoSubFlow()
+		} else if choice == options[5] {
 			break
 		}
 		
@@ -480,6 +483,24 @@ func importCSVSubFlow() {
 		fmt.Printf("[ERROR] CSV Import failed: %v\n", err)
 	} else {
 		fmt.Printf("\n[SUCCESS] Imported successfully: Added %d, Upserted %d.\n", inserted, updated)
+	}
+}
+
+func exportCSVTemplateSubFlow() {
+	var path string
+	err := survey.AskOne(&survey.Input{
+		Message: "Enter target path to save the CSV template (e.g. ./repos_template.csv):",
+		Default: "./repos_template.csv",
+	}, &path, survey.WithValidator(survey.Required))
+	if err != nil {
+		return
+	}
+
+	err = configRepo.ExportCSVTemplate(path)
+	if err != nil {
+		fmt.Printf("[ERROR] Failed to save CSV template: %v\n", err)
+	} else {
+		fmt.Printf("\n[SUCCESS] CSV template saved successfully to %s\n", path)
 	}
 }
 

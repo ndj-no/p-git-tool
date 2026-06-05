@@ -309,7 +309,11 @@ Personal Access Tokens (PATs) and passwords are never saved in the JSON files. W
 
 ## CSV Bulk Import Specification
 
-You can import bulk repositories by loading a `.csv` file. 
+You can import bulk repositories by loading a `.csv` file. To assist users in formatting their files correctly, both the CLI and GUI provide a **CSV Template Export** feature that downloads a valid CSV template containing sample records as a reference.
+
+### CSV Template Export:
+- **In the Desktop GUI**: Click the **Get CSV Template** button in the *Repository Database* tab. It opens a native file dialog to save `repos_template.csv` to a directory of your choice.
+- **In the CLI**: Under `2. Manage Repositories (Quản lý Repositories)`, choose `4. Export CSV Template` and specify the output path.
 
 ### CSV File Header Format:
 The file must contain headers. The parser automatically normalizes and trims spaces. The required headers are `name` and `url`. Optional headers are `tags` and `auth_profile` (maps to an existing Auth Profile ID).

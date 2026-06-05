@@ -22,6 +22,10 @@ export function DeleteRepo(arg1) {
   return window['go']['main']['App']['DeleteRepo'](arg1);
 }
 
+export function ExportCSVTemplate() {
+  return window['go']['main']['App']['ExportCSVTemplate']();
+}
+
 export function GetAuthProfiles() {
   return window['go']['main']['App']['GetAuthProfiles']();
 }
@@ -34,8 +38,8 @@ export function GetRepos() {
   return window['go']['main']['App']['GetRepos']();
 }
 
-export function ImportCSV(arg1) {
-  return window['go']['main']['App']['ImportCSV'](arg1);
+export function ImportCSV() {
+  return window['go']['main']['App']['ImportCSV']();
 }
 
 export function SaveConfig(arg1, arg2) {

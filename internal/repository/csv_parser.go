@@ -257,3 +257,17 @@ func (r *ConfigRepository) ImportReposFromCSV(filePath string) (int, int, error)
 
 	return inserted, updated, nil
 }
+
+// ExportCSVTemplate writes a sample CSV template with columns name, url, tags, auth_profile to the specified file path.
+func (r *ConfigRepository) ExportCSVTemplate(filePath string) error {
+	content := "name,url,tags,auth_profile\n" +
+		"api-gateway,https://github.com/my-org/api-gateway.git,gateway;backend;node,e457f006-2580-4966-bfd7-e23f05b828ef\n" +
+		"auth-ui,git@github.com:my-org/auth-ui.git,frontend;react,\n" +
+		"user-service,ssh://git@github.com:7999/my-org/user-service.git,backend;go,\n"
+
+	err := os.WriteFile(filePath, []byte(content), 0644)
+	if err != nil {
+		return fmt.Errorf("failed to write CSV template: %w", err)
+	}
+	return nil
+}

@@ -10,6 +10,7 @@ import {
     UpdateRepo,
     DeleteRepo,
     ImportCSV,
+    ExportCSVTemplate,
     GetAuthProfiles,
     AddAuthProfile,
     DeleteAuthProfile,
@@ -430,6 +431,7 @@ function initRepoCRUDFlow() {
     const cancelBtn = document.getElementById('repo-modal-cancel');
     const saveBtn = document.getElementById('repo-modal-save');
     const csvBtn = document.getElementById('csv-import-btn');
+    const csvTemplateBtn = document.getElementById('csv-template-btn');
 
     searchInput.addEventListener('input', loadRepositoriesTable);
 
@@ -482,14 +484,19 @@ function initRepoCRUDFlow() {
 
     // CSV Bulk Import Action
     csvBtn.addEventListener('click', async () => {
-        const path = prompt("Please enter the absolute file path to repos.csv file on your disk:");
-        if (path === null || path.trim() === "") return;
-
-        const result = await ImportCSV(path);
+        const result = await ImportCSV();
+        if (result === "") return; // User cancelled
         alert(result);
         
         state.repos = await GetRepos();
         loadRepositoriesTable();
+    });
+
+    // CSV Template Export Action
+    csvTemplateBtn.addEventListener('click', async () => {
+        const result = await ExportCSVTemplate();
+        if (result === "") return; // User cancelled
+        alert(result);
     });
 }
 

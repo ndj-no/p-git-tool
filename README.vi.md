@@ -309,7 +309,11 @@ Mọi mã token cá nhân (PAT) và password tuyệt đối không lưu trực t
 
 ## Đặc tả Kỹ thuật CSV Bulk Import
 
-Người dùng có thể nhập số lượng lớn repository bằng cách đưa vào một file `.csv` cấu trúc như sau:
+Người dùng có thể nhập số lượng lớn repository bằng cách đưa vào một file `.csv`. Để hỗ trợ người dùng định dạng file chuẩn xác, cả giao diện CLI và GUI đều cung cấp tính năng **Tải File mẫu CSV (Export CSV Template)** chứa các bản ghi ví dụ để tham khảo.
+
+### Xuất/Tải File mẫu CSV:
+-   **Trên Desktop GUI**: Click vào button **Get CSV Template** tại tab *Repository Database*. Hệ thống sẽ hiển thị hộp thoại lưu file hệ thống để bạn chọn vị trí lưu `repos_template.csv`.
+-   **Trên giao diện CLI**: Chọn menu `2. Manage Repositories (Quản lý Repositories)` -> chọn mục `4. Export CSV Template` và điền đường dẫn muốn lưu file.
 
 ### Định dạng Header của file CSV:
 File CSV phải chứa hàng tiêu đề. Tên tiêu đề cột không phân biệt chữ hoa/thường và sẽ tự động được trim khoảng trắng. Bắt buộc phải có hai cột là `name` và `url`. Các cột `tags` và `auth_profile` (ID của Auth Profile bảo mật tương ứng) là tùy chọn.
